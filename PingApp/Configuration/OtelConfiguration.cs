@@ -1,3 +1,5 @@
+using MassTransit.Logging;
+using MassTransit.Monitoring;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
@@ -13,17 +15,19 @@ public static class OtelConfiguration
             logging.IncludeFormattedMessage = true;
             logging.IncludeScopes = true;
         });
-
+        
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
                 metrics.AddAspNetCoreInstrumentation()
+                    .AddMeter(InstrumentationOptions.MeterName) // MassTransit Meter
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation();
             })
             .WithTracing(tracing =>
             {
                 tracing.AddSource(builder.Environment.ApplicationName)
+                    .AddSource(DiagnosticHeaders.DefaultListenerName) // MassTransit ActivitySource
                     .AddAspNetCoreInstrumentation()
                     // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
                     //.AddGrpcClientInstrumentation()

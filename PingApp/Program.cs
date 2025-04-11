@@ -1,10 +1,30 @@
+using MassTransit;
 using ping_app.Configuration;
+using ping_app.Domain;
+using ping_app.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureOpenTelemetry();
 
 // Add services to the container.
+builder.Services.AddMassTransit(bus =>
+{
+    bus.AddConsumer<PongedConsumer>();
+    
+    bus.UsingRabbitMq((context, cfg) =>
+    {        
+        cfg.Host("amqps://guest:guest@rabbitmq:5672/");
+        
+        cfg.Message<PingedEvent>(x => x.SetEntityName("pinged-event"));
+
+        cfg.ReceiveEndpoint("pinged-app", e =>
+        {
+            e.Bind("ponged-event");
+            e.ConfigureConsumer<PongedConsumer>(context);
+        });
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,29 +39,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/ping", async (IPublishEndpoint publishEndpoint) =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
+        await publishEndpoint.Publish(new PingedEvent(Guid.NewGuid()));
+        return Results.Ok();
     })
-    .WithName("GetWeatherForecast")
+    .WithName("Ping")
     .WithOpenApi();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

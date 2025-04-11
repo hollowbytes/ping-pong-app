@@ -23,9 +23,9 @@ services:
       RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "ping-app:dev"
     ports:
-    - "127.0.0.1:51532:57000"
-    - "127.0.0.1:51533:57200"
-    - "127.0.0.1:51534:57400"
+    - "127.0.0.1:57014:57000"
+    - "127.0.0.1:57214:57200"
+    - "127.0.0.1:57414:57400"
     volumes:
     - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app\\PingApp:/app:rw"
     - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app:/src:rw"
@@ -34,7 +34,7 @@ services:
       Linux64:/opt/JetBrains/RiderDebuggerTools"
     - "C:\\Users\\Joe\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\Rider2024.3\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2025_4_11_17_34_12:/var/opt/JetBrains/RiderDebuggerTools:rw"
+      JetBrains.Debugger.Worker.2025_4_11_18_55_37:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"
   pong-app:
     build:
@@ -59,9 +59,9 @@ services:
       RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "pong-app:dev"
     ports:
-    - "127.0.0.1:51535:57000"
-    - "127.0.0.1:51536:57200"
-    - "127.0.0.1:51537:57400"
+    - "127.0.0.1:57015:57000"
+    - "127.0.0.1:57215:57200"
+    - "127.0.0.1:57415:57400"
     volumes:
     - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app\\PongApp:/app:rw"
     - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app:/src:rw"
@@ -70,5 +70,5 @@ services:
       Linux64:/opt/JetBrains/RiderDebuggerTools"
     - "C:\\Users\\Joe\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\Rider2024.3\\log\\DebuggerWorker\\\
-      JetBrains.Debugger.Worker.2025_4_11_17_34_12:/var/opt/JetBrains/RiderDebuggerTools:rw"
+      JetBrains.Debugger.Worker.2025_4_11_18_55_37:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"
