@@ -1,0 +1,74 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  ping-app:
+    build:
+      context: "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app"
+      dockerfile: "PingApp/Dockerfile"
+      target: "base"
+      args:
+        BUILD_CONFIGURATION: "Debug"
+    command: []
+    entrypoint:
+    - "/opt/JetBrains/RiderDebuggerTools/linux-x64/JetBrains.Debugger.Worker"
+    - "--runtimeconfig"
+    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
+    - "--mode=server"
+    - "--frontend-port=57000"
+    - "--backend-port=57200"
+    - "--roslyn-worker-port=57400"
+    - "--timeout=60"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
+      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    image: "ping-app:dev"
+    ports:
+    - "127.0.0.1:51532:57000"
+    - "127.0.0.1:51533:57200"
+    - "127.0.0.1:51534:57400"
+    volumes:
+    - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app\\PingApp:/app:rw"
+    - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app:/src:rw"
+    - "C:\\Users\\Joe\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2024.3.6\\\
+      Linux64:/opt/JetBrains/RiderDebuggerTools"
+    - "C:\\Users\\Joe\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\Rider2024.3\\log\\DebuggerWorker\\\
+      JetBrains.Debugger.Worker.2025_4_11_17_34_12:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    working_dir: "/app"
+  pong-app:
+    build:
+      context: "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app"
+      dockerfile: "PongApp/Dockerfile"
+      target: "base"
+      args:
+        BUILD_CONFIGURATION: "Debug"
+    command: []
+    entrypoint:
+    - "/opt/JetBrains/RiderDebuggerTools/linux-x64/JetBrains.Debugger.Worker"
+    - "--runtimeconfig"
+    - "/opt/JetBrains/RiderDebuggerTools/JetBrains.Debugger.Worker.runtimeconfig.json"
+    - "--mode=server"
+    - "--frontend-port=57000"
+    - "--backend-port=57200"
+    - "--roslyn-worker-port=57400"
+    - "--timeout=60"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      RIDER_DEBUGGER_LOG_DIR: "/var/opt/JetBrains/RiderDebuggerTools"
+      RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    image: "pong-app:dev"
+    ports:
+    - "127.0.0.1:51535:57000"
+    - "127.0.0.1:51536:57200"
+    - "127.0.0.1:51537:57400"
+    volumes:
+    - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app\\PongApp:/app:rw"
+    - "C:\\Users\\Joe\\Desktop\\repos\\hollow-bytes\\ping-pong-app:/src:rw"
+    - "C:\\Users\\Joe\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\RiderRemoteDebugger\\2024.3.6\\\
+      Linux64:/opt/JetBrains/RiderDebuggerTools"
+    - "C:\\Users\\Joe\\AppData\\Local\\Programs\\Rider\\bin\\backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
+    - "C:\\Users\\Joe\\AppData\\Local\\JetBrains\\Rider2024.3\\log\\DebuggerWorker\\\
+      JetBrains.Debugger.Worker.2025_4_11_17_34_12:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    working_dir: "/app"

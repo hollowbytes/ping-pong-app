@@ -1,0 +1,19 @@
+﻿name: ping-pong-app
+include:
+  - ./.docker-compose/grafana-otel/docker-compose.yaml
+  - ./.docker-compose/az-service-bus/docker-compose.yaml
+
+services:
+  ping-app:
+    container_name: "ping-app"
+    image: ping-app
+    build:
+      context: .
+      dockerfile: PingApp/Dockerfile
+  
+  pong-app:
+    container_name: "pong-app"
+    image: pong-app
+    build:
+      context: .
+      dockerfile: PongApp/Dockerfile
